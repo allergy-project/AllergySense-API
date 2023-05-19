@@ -82,12 +82,12 @@ exports.verify = async (req, res) => {
     try{
        // Check if Code Valid
        const userDocs = await User.where("verification_code", "==", code.toString()).get();
-       if(userDocs.empty) return res.status(404).json({ status_code:404, message: "Verification Code Not Found!" });
+       if(userDocs.empty) return res.status(404).send("Verification Code Not Found!");
        
        // Check if User Has Verified
        const userDoc = userDocs.docs[0];
        const userData = userDoc.data();
-       if (userData.is_verified == true) return res.status(400).json({ status_code:400, message: "Account Already Verified!" });
+       if (userData.is_verified == true) return res.status(400).send("Account Already Verified!");
        
        // Change Status User + Add Update At
        userData.is_verified = true;
@@ -95,7 +95,7 @@ exports.verify = async (req, res) => {
        const update_at = Date.now(); 
        await User.doc(userDoc.id).update({...userData, update_at});
        
-       return res.status(200).json({ status_code:200, message: "Account Verification Success!"});
+       return res.status(200).send("Account Verification Success!");
     } catch(error){
        return res.status(500).json({ status_code:500, message: error.message });
     }
