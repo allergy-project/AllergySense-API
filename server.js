@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
-app.get("/", (req, res) => res.json({message:"API RUN", testing:`${req.protocol}://${req.hostname}:${process.env.PORT}${req.path}`}));
+app.get("/", (req, res) => res.send("API RUN"));
 app.use("/api/v1", authRoutes );
 app.use("/api/v1/histories", historiesRoutes );
 app.use("/api/v1/profile", profileRoutes );
