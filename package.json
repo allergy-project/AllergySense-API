@@ -1,5 +1,5 @@
 {
-  "name": "allgeryssense-api-testtemplate",
+  "name": "allgeryssense-api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Gre-ys/AllgerysSense-API-TestTemplate.git"
+    "url": "git+https://github.com/allergy-project/AllergySense-API.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Gre-ys/AllgerysSense-API-TestTemplate/issues"
+    "url": "https://github.com/allergy-project/AllergySense-API/issues"
   },
-  "homepage": "https://github.com/Gre-ys/AllgerysSense-API-TestTemplate#readme",
+  "homepage": "https://github.com/allergy-project/AllergySense-API#readme",
   "dependencies": {
     "apicache": "^1.6.3",
     "bcrypt": "^5.1.0",
