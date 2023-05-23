@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/allergy-project/AllergySense-API#readme",
   "dependencies": {
-    "apicache": "^1.6.3",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
