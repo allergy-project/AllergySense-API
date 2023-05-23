@@ -95,6 +95,14 @@ exports.verify = async (req, res) => {
        const update_at = Date.now(); 
        await User.doc(userDoc.id).update({...userData, update_at});
        
+       // Delete Other Account with Same username or email With this but Hasnt been Verified
+       // Same Username 
+       let otherUserDocs = await User.where("username", "==", userData.username).where("is_verified", "==", false).get();
+       otherUserDocs.forEach(async (doc) => {await User.doc(doc.id).delete()});
+       // Same Email
+       otherUserDocs = await User.where("email", "==", userData.email).where("is_verified", "==", false).get();
+       otherUserDocs.forEach(async (doc) => {await User.doc(doc.id).delete()});
+       
        return res.status(200).send("Account Verification Success!");
     } catch(error){
        return res.status(500).json({ status_code:500, message: error.message });

@@ -14,9 +14,12 @@ exports.create = () => async (req, res, next) => {
         data[requiredData] = data[requiredData].toString().trim();
         
         // Check Symbol in Input
+        // for History Its Oke Without Check Symbol?
+        /*
         for(x of data[requiredData]){
             if(["--", "_", "-", "%", "'", '"', "$", "&", "`", "#", "*"].indexOf(x) != -1)return res.status(400).json({status_code:400, message: `Can't Use ${x} Symbol for Input!`});
         }
+        */
     }
         
     // Wrap Data for Used in Controller
