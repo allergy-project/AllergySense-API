@@ -21,7 +21,7 @@ exports.getProfile = async(req, res) => {
        const userData = userDoc.data();
        
        // Filter Data to Return
-       const data = {username: userData.username, email: userData.email, created_at: userData.created_at, update_at: (userData.update_at)? userData.update_at:userData.created_at};
+       const data = {username: userData.username, name: userData.name, email: userData.email, image_url: userData.image_url, created_at: userData.created_at, update_at: (userData.update_at)? userData.update_at:userData.created_at};
        
        return res.status(200).json({status_code:200, message:"Success Get Profile!", data: data});
    } catch(error){
@@ -36,6 +36,9 @@ exports.updateProfile = async(req, res) => {
    // Get User Id from Middleware
    const user_id = req.user.id;
    
+   // Check req.data From Validation
+   if (req.data == null || Object.keys(req.data) == 0) return res.status(400).json({status_code:400, message: `No Data To Be Updated!`});
+   
    // Get Data from Validation
    data = req.data;
    
@@ -48,12 +51,20 @@ exports.updateProfile = async(req, res) => {
        
        const userData = userDoc.data();
        
-       // Check Password, If Not Right Forbid Change
-       const match = await bcrypt.compare(data.password, userData.password);
-       if (!match) return res.status(400).json({ status_code:400, message: "Password Wrong!" });
+       // Check Password, If Not Right Forbid Change(Only Do If There is Username, Email, or New Password)
+       if (("username" in data) || ("email" in data) || ("new_password" in data)){
+           const match = await bcrypt.compare(data.password, userData.password);
+           if (!match) return res.status(400).json({ status_code:400, message: "Password Wrong!" });
+       }
        
-       // Pass Username
-       userData.username = data.username;
+       // If Change Name
+       if (data.name) userData.name = data.name;
+       
+       // If Change Username
+       if (data.username) userData.username = data.username;
+       
+       // If Change Image
+       if (data.image_url) userData.image_url = data.image_url;
        
        // If Change Password
        if (data.new_password){
@@ -62,7 +73,7 @@ exports.updateProfile = async(req, res) => {
        }
        
        // If Email Change
-       if (userData.email != data.email){
+       if (data.email){
             // Change Status Verified
             userData.is_verified = false;
           

@@ -34,7 +34,9 @@ exports.register = async (req, res) => {
     const created_at = Date.now(); 
     
     // Create User
-    await User.add({ username, password: hash, email, is_verified: false, verification_code: code , created_at});
+    // Set Default Image URL
+    const image_url = `https://storage.googleapis.com/${process.env.BUCKET_NAME}/default.PNG`;
+    await User.add({ username, name: username, password: hash, email, image_url, is_verified: false, verification_code: code , created_at});
     
     return res.status(201).json({ status_code:201, message: "User Registered!" });
   } catch (error) {

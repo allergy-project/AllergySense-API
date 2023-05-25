@@ -3,7 +3,7 @@ exports.create = () => async (req, res, next) => {
     const data = req.body;
     
     // Check Data
-    for (requiredData of ["allergy","suggest"]){
+    for (requiredData of ["allergy","suggest", "suggest_indo"]){
         // Check Required Data
         if (!(requiredData in data)) return res.status(400).json({status_code:400, message: `${requiredData} is Required!`});
         

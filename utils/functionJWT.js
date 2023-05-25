@@ -14,6 +14,6 @@ exports.verifyToken = (token) => {
     const data = jwt.verify(token, process.env.SECRET_KEY);
     return data;
   } catch (error) {
-    throw new Error("Invalid Token!");
+    throw new Error(error.message);
   }
 };

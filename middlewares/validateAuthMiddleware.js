@@ -12,7 +12,7 @@ const validateAuth = async (req, res, next) => {
     req.user = data;
     return next();
   } catch (error) {
-    return res.status(401).json({ status_code:401 ,message: "Invalid Token!" });
+    return res.status(401).json({ status_code:401 ,message: error.message });
   }
 };
 

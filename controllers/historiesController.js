@@ -1,6 +1,7 @@
 const User = require("../models/User")
 const History = require("../models/History")
 
+
 exports.getHistories = async (req, res) => {
     // Cek User Login
     if (!req.user || req.user == null || req.user.length == 0) return res.status(401).json({ status_code:401, message: "User Not Authenticated!" });
@@ -65,12 +66,15 @@ exports.createHistory = async (req, res) => {
   // Get User Id from Middleware
   const user_id = req.user.id;
   
+  // Check Image Uploaded
+  if (!req.image_url || req.image_url == null || req.image_url.length == 0) return res.status(400).json({ status_code:400, message: "Uploaded Image is Required!" });
+  
   try {
     // Data for Created At(Unixtime)
     const created_at = Date.now(); 
     
     // Create History
-    const historyDoc = await History.add({ ...req.data, created_at, user_id: req.user.id });
+    const historyDoc = await History.add({ ...req.data, created_at, user_id: req.user.id, image_url: req.image_url });
     
     return res.status(201).json({ status_code: 201, message: "History Created!", data: {history_id: historyDoc.id} });
     
