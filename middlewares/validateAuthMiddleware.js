@@ -5,7 +5,7 @@ const validateAuth = async (req, res, next) => {
 	
   const token = req.header("Authorization");
 
-  if (!token || token === undefined || token.length == 0) return res.status(401).json({ status_code:401, message: "User Not Authenticated!" });
+  if (!token || token === undefined || token.length == 0) return res.status(401).json({ status_code:401, message: (req.isIndo)? "Pengguna Belum Terautentikasi" : "User Not Authenticated!" });
 
   try {
     const data = verifyToken(token);

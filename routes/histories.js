@@ -20,7 +20,7 @@ router.get("/", validateAuth, historiesController.getHistories);
 router.get("/:id", validateAuth, historiesController.getHistoryById);
 
 // Create History
-router.post("/", [validateAuth, multer.single("history_image"), uploadImage.multerErrorHandler(), uploadImage.uploadToGCS(), historyValidation.create()], historiesController.createHistory);
+router.post("/", [validateAuth, multer.single("history_image"), uploadImage.multerErrorHandler(), uploadImage.uploadToGCS("histories"), historyValidation.create()], historiesController.createHistory);
 
 // Create History
 router.delete("/:id", validateAuth, historiesController.deleteHistory);

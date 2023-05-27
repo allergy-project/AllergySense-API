@@ -17,6 +17,6 @@ const multer = Multer({
 router.get("/", validateAuth, profileController.getProfile);
 
 // Edit Profile
-router.put("/", [validateAuth, multer.single("profile_image"), uploadImage.multerErrorHandler(), uploadImage.uploadToGCS(), updateProfile()], profileController.updateProfile);
+router.put("/", [validateAuth, multer.single("profile_image"), uploadImage.multerErrorHandler(), uploadImage.uploadToGCS("profile"), updateProfile()], profileController.updateProfile);
 
 module.exports = router;

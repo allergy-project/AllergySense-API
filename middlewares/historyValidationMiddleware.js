@@ -5,10 +5,10 @@ exports.create = () => async (req, res, next) => {
     // Check Data
     for (requiredData of ["allergy","suggest", "suggest_indo"]){
         // Check Required Data
-        if (!(requiredData in data)) return res.status(400).json({status_code:400, message: `${requiredData} is Required!`});
+        if (!(requiredData in data)) return res.status(400).json({status_code:400, message: (req.isIndo)? `${requiredData} Wajib Diisi!` : `${requiredData} is Required!`});
         
         // Check if Empty
-        if(data[requiredData].length == 0) return res.status(400).json({status_code:400, message: `${requiredData} is Required!`});
+        if(data[requiredData].length == 0) return res.status(400).json({status_code:400, message: (req.isIndo)? `${requiredData} Wajib Diisi!` : `${requiredData} is Required!`});
         
         // Convert to String and Trim Data
         data[requiredData] = data[requiredData].toString().trim();

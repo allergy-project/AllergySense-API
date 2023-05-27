@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const historiesRoutes = require("./routes/histories");
 const profileRoutes = require("./routes/profile");
 const quotesRoutes = require("./routes/quotes");
+const checkLanguage = require("./middlewares/checkLanguageMiddleware")
 
 // For testing(Dont do In Production)
 //const {admin, fbconf} = require("./config/firebase");
@@ -27,9 +28,11 @@ app.use(limiter);
 // Middleware Config
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(checkLanguage);
 
 // Routes
 app.get("/", (req, res) => res.send("API RUN"));
+app.get("/api/v1/", (req, res) => res.send("API RUN"));
 app.use("/api/v1", authRoutes );
 app.use("/api/v1/histories", historiesRoutes );
 app.use("/api/v1/profile", profileRoutes );
