@@ -15,7 +15,7 @@ exports.allergyDetection = async (req, res) => {
         
         // Prepare Image for Input
         const imageBuffer = req.file.buffer;
-        const decodeImage = tf.node.decodeImage(imageBuffer);
+        const decodeImage = tf.node.decodeImage(imageBuffer, 3);
         
         // Resize Input Image
         const resizedImage = tf.image.resizeBilinear(decodeImage, [56, 56]);
