@@ -20,6 +20,7 @@
   "dependencies": {
     "@google-cloud/storage": "^6.10.1",
     "@tensorflow/tfjs": "^4.6.0",
+    "@tensorflow/tfjs-node": "^4.6.0",
     "apicache": "^1.6.3",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
