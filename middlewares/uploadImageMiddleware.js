@@ -19,7 +19,7 @@ exports.multerErrorHandler = () => (err, req, res, next) => {
 }
 
 // Upload Image to Cloud Storage Bucket
-exports.uploadToGCS = (bucketTarget = "blank") => async (req, res, next) => {
+exports.uploadToGCS = (bucketTarget = "blank", dontUpload=false) => async (req, res, next) => {
     try{
         // Configure the storage client with the loaded credentials
         const storageOptions = {
@@ -40,6 +40,9 @@ exports.uploadToGCS = (bucketTarget = "blank") => async (req, res, next) => {
         // Check File is Image or Not
         const fileExtension = file.originalname.split(".").pop().toLowerCase();
         if (["png", "jpg","jpeg"].indexOf(fileExtension) == -1 ) return res.status(400).json({ status_code:400, message: (req.isIndo)? "Upload File dalam Format Gambar(png, jpg, jpeg)!" : 'Only Upload File in Image Format(png, jpg, jpeg)!' });
+        
+        // If Dont Want Upload to GCS(Just Want to Validate File)
+        if (dontUpload) return next();
         
         // Generate Random String for Image Name
         const imageName = crypto.randomBytes(10).toString("hex");

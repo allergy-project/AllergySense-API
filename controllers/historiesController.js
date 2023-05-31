@@ -74,6 +74,8 @@ exports.getHistoryById = async (req, res) => {
     }else{
         delete history.suggest_indo;
     }
+    
+    history = {id: historyDoc.id, ...history};
 
     return res.status(200).json({ status_coe:200, message: (req.isIndo)? `Berhasil Mengambil History/Riwayat!` : "Success Get History!", data: history });
     

@@ -1,4 +1,5 @@
 const { verifyToken } = require("../utils/functionJWT");
+const User = require("../models/User");
 
 const validateAuth = async (req, res, next) => {
   if(req.user) return next() // Maybe Used if Implementing Session
@@ -10,9 +11,11 @@ const validateAuth = async (req, res, next) => {
   try {
     const data = verifyToken(token);
     req.user = data;
+    const userDoc = await User.doc(req.user.id).get();
+    if (!userDoc.exists) return res.status(401).json({ status_code:401 ,message:(req.isIndo)? "Pengguna Tidak Ditemukan!" : "User Not Found!" });
     return next();
   } catch (error) {
-    return res.status(401).json({ status_code:401 ,message: error.message });
+    return res.status(401).json({ status_code:401 ,message: "Invalid Token!" });
   }
 };
 

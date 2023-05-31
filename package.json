@@ -19,6 +19,7 @@
   "homepage": "https://github.com/allergy-project/AllergySense-API#readme",
   "dependencies": {
     "@google-cloud/storage": "^6.10.1",
+    "@tensorflow/tfjs": "^4.6.0",
     "apicache": "^1.6.3",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
@@ -33,6 +34,7 @@
     "validator": "^13.9.0"
   },
   "devDependencies": {
+    "@tensorflow/tfjs-converter": "^4.6.0",
     "nodemon": "^2.0.22"
   }
 }
