@@ -1,7 +1,7 @@
 exports.allergyDetection = () => async (req, res, next) => {
     try{
         // Check Image Uploaded
-        if (!req.image_url || req.image_url == null || req.image_url.length == 0) return res.status(400).json({ status_code:400, message: (req.isIndo)? `Upload Gambar Wajib Dilakukan!` : "Uploaded Image is Required!" });
+        if (!req.file || req.file == null || req.file.length == 0) return res.status(400).json({ status_code:400, message: (req.isIndo)? `Upload Gambar Wajib Dilakukan!` : "Uploaded Image is Required!" });
         
         const data = req.body;
     
