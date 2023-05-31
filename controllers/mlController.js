@@ -34,7 +34,7 @@ exports.allergyDetection = async (req, res) => {
             message = (req.isIndo)? "Tidak Terindikasi Alergi!" : "Not Indicated Allergy!"
         }
         
-        res.status(200).json({status_code:200, message, result});
+        res.status(200).json({status_code:200, message, result, data: req.data});
         
     }catch(error){
         console.log(error);
