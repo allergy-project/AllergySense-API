@@ -11,6 +11,7 @@ exports.allergyDetection = async (req, res) => {
         
         // Load Model
         modelLocation = path.join(__dirname, "../utils/allergyDetection.json");;
+        console.log(modelLocation)
         //const modelLocation = "../utils/allergyDetection.json";
         //modelData = fs.readFileSync(modelLocation, "utf8");
         const model = await tf.loadLayersModel(`file://${modelLocation}`);
