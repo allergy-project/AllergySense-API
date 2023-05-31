@@ -24,7 +24,8 @@ exports.allergyDetection = async (req, res) => {
         
         // Predict
         const predictions = model.predict(inputTensor);
-        res.status(200).send(predictions);
+        const result = predictions.arraySync();
+        res.status(200).send(result);
         
     }catch(error){
         console.log(error);
