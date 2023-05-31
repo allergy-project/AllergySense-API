@@ -15,6 +15,8 @@ exports.allergyDetection = async (req, res) => {
         //const modelLocation = "../utils/allergyDetection.json";
         //modelData = fs.readFileSync(modelLocation, "utf8");
         const model = await tf.loadLayersModel(`file://${modelLocation}`);
+        console.log(model.summary());
+        res.status.json({test: model.summary()});
         
         // Predict
         const predictions = model.predict(file);
