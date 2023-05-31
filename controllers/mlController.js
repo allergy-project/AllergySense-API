@@ -11,15 +11,16 @@ exports.allergyDetection = async (req, res) => {
         
         // Load Model
         modelLocation = path.join(__dirname, "../utils/allergyDetection.json");;
-        console.log(modelLocation)
-        //const modelLocation = "../utils/allergyDetection.json";
-        //modelData = fs.readFileSync(modelLocation, "utf8");
         const model = await tf.loadLayersModel(`file://${modelLocation}`);
         console.log(model.summary());
-        res.status.json({test: model.summary()});
+        
+        // Prepare Image for Input
+        const imageBuffer = req.file.buffer;
+        const decodeImage = tf.node.decodeImage(imageBuffer);
+        const inputTensor = tf.expandDims(decodeImage);
         
         // Predict
-        const predictions = model.predict(file);
+        const predictions = model.predict(inputTensor);
         res.status(200).send(prediction);
         
     }catch(error){
