@@ -19,6 +19,8 @@ exports.allergyDetection = () => async (req, res, next) => {
             
         // Wrap Data for Used in Controller
         req.data = data;
+        
+        return next();
     }catch(error){
         return res.status(500).json({ status_code:500, message: error.message });
     }
