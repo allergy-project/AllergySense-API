@@ -8,6 +8,7 @@ exports.allergyDetection = async (req, res) => {
     
     try{
         const file = req.file;
+        // req.data
         
         // Load Model
         modelLocation = path.join(__dirname, "../utils/allergyDetection.json");;
@@ -25,7 +26,15 @@ exports.allergyDetection = async (req, res) => {
         // Predict
         const predictions = model.predict(inputTensor);
         const result = predictions.arraySync();
-        res.status(200).send(result);
+        
+        let message = ""
+        if (result[0] > result[1]){
+            message = (req.isIndo)? "Terindikasi Alergi!" : "Indicated Allergy!"
+        }else if (result[0] > result[1]){
+            message = (req.isIndo)? "Tidak Terindikasi Alergi!" : "Not Indicated Allergy!"
+        }
+        
+        res.status(200).json({status_code:200, message, result});
         
     }catch(error){
         console.log(error);
