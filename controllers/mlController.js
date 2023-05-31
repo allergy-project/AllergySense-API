@@ -12,11 +12,14 @@ exports.allergyDetection = async (req, res) => {
         // Load Model
         modelLocation = path.join(__dirname, "../utils/allergyDetection.json");;
         const model = await tf.loadLayersModel(`file://${modelLocation}`);
-        console.log(model.summary());
         
         // Prepare Image for Input
         const imageBuffer = req.file.buffer;
         const decodeImage = tf.node.decodeImage(imageBuffer);
+        
+        // Resize Input Image
+        const resizedImage = tf.image.resizeBilinear(decodeImage, [53, 53]);
+        const preprocessedImage = resizedImage.div(255.0);
         const inputTensor = tf.expandDims(decodeImage);
         
         // Predict
