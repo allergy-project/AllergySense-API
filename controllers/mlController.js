@@ -28,9 +28,9 @@ exports.allergyDetection = async (req, res) => {
         const result = predictions.arraySync();
         
         let message = ""
-        if (result[0] > result[1]){
+        if (result[0][0] > result[0][1]){
             message = (req.isIndo)? "Terindikasi Alergi!" : "Indicated Allergy!"
-        }else if (result[0] > result[1]){
+        }else if (result[0][0] > result[0][1]){
             message = (req.isIndo)? "Tidak Terindikasi Alergi!" : "Not Indicated Allergy!"
         }
         
