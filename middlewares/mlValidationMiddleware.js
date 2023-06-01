@@ -1,4 +1,4 @@
-exports.allergyDetection = () => async (req, res, next) => {
+exports.allergyCheck = () => async (req, res, next) => {
     try{
         // Check Image Uploaded
         if (!req.file || req.file == null || req.file.length == 0) return res.status(400).json({ status_code:400, message: (req.isIndo)? `Upload Gambar Wajib Dilakukan!` : "Uploaded Image is Required!" });
