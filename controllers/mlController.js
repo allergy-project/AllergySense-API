@@ -29,14 +29,14 @@ exports.allergyDetection = async (req, res) => {
         
         let message = ""
         if (result[0][0] > result[0][1]){
-            message = (req.isIndo)? "Terindikasi Alergi!" : "Indicated Allergy!"
+            message = (req.isIndo)? "Terindikasi Alergi!" : "Indicated Allergy!";
         }else if (result[0][1] > result[0][0]){
-            message = (req.isIndo)? "Tidak Terindikasi Alergi!" : "Not Indicated Allergy!"
+            message = (req.isIndo)? "Tidak Terindikasi Alergi!" : "Not Indicated Allergy!";
         }else{
-            message = (req.isIndo)? "Tingkat Indikasi Sebanding(Netral)!" : "Indicated Level Neutral!"
+            message = (req.isIndo)? "Tingkat Indikasi Sebanding(Netral)!" : "Indicated Level Neutral!";
         }
         
-        res.status(200).json({status_code:200, message, result[0], data: req.data});
+        res.status(200).json({status_code:200, message, result, data: req.data});
         
     }catch(error){
         console.log(error);
