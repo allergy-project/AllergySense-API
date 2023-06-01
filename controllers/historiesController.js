@@ -84,6 +84,7 @@ exports.getHistoryById = async (req, res) => {
   }
 };
 
+/* Functionality of This Features Moved to allergy-check Endpoint Features
 exports.createHistory = async (req, res) => {
   // Cek User Login
   if (!req.user || req.user == null || req.user.length == 0) return res.status(401).json({ status_code:401, message: (req.isIndo)? `Pengguna Belum Terautentikasi!` : "User Not Authenticated!" });
@@ -107,6 +108,7 @@ exports.createHistory = async (req, res) => {
     return res.status(500).json({ status_code: 500, message: error.message });
   }
 };
+*/
 
 exports.deleteHistory = async (req, res) => {
    // Cek User Login

@@ -20,9 +20,12 @@ router.get("/", validateAuth, historiesController.getHistories);
 router.get("/:id", validateAuth, historiesController.getHistoryById);
 
 // Create History
+// Functionality of This Features Moved to allergy-check Endpoint Features
+/*
 router.post("/", [validateAuth, multer.single("history_image"), uploadImage.multerErrorHandler(), uploadImage.uploadToGCS("histories"), historyValidation.create()], historiesController.createHistory);
+*/
 
-// Create History
+// Delete History
 router.delete("/:id", validateAuth, historiesController.deleteHistory);
 
 module.exports = router;

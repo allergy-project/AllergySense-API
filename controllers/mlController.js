@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const History = require("../models/History")
 
-exports.allergyDetection = async (req, res) => {
+exports.allergyCheck = async (req, res) => {
     // Cek User Login
     if (!req.user || req.user == null || req.user.length == 0) return res.status(401).json({ status_code:401, message: (req.isIndo)? `Pengguna Belum Terautentikasi!` : "User Not Authenticated!" });
 
@@ -54,8 +54,12 @@ exports.allergyDetection = async (req, res) => {
         // Data for Created At(Unixtime)
         const created_at = Date.now(); 
         
-        // Clear Allergy Field if Not Allergy
-        if (!isAllergy) data.allergy = "Not Allergy";
+        // Change Allergy Related Field if Not Allergy
+        if (!isAllergy){
+            data.allergy = "Not Allergy";
+            data.suggest = "Because is possible not allergy so just keep clean your surrounding and beware of something that dangerous to your skin health"
+            data.suggest_indo = "Karena kemungkinan bukan terkena alergi, maka cukup jaga kebersihan lingkungan sekitar dan berhati-hati terhadap benda-benda disekitar yang berbahaya bagi kesehatan kulit"
+        }
         
         // Add History
         const historyDoc = await History.add({ ...data, created_at, user_id: req.user.id, image_url: req.image_url, problem: req.data.problem, is_allergy: isAllergy });
