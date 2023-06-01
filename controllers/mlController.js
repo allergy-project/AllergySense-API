@@ -66,7 +66,7 @@ exports.allergyCheck = async (req, res) => {
         
         if (isAllergy) message = message+` ${data.allergy}`;
         
-        res.status(200).json({status_code:200, message, data: {history_id: historyDoc.id}});
+        res.status(200).json({status_code:200, message, data: {history_id: historyDoc.id, is_allergy: isAllergy}});
         
     }catch(error){
         console.log(error);
