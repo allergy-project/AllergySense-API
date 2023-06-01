@@ -13,7 +13,7 @@ const multer = Multer({
     }
 });
 
-// Predict Allergy Check
+//Allergy Check(Predict Detection & Classification)
 router.post("/allergy-check", [validateAuth, multer.single("allergy_image"), uploadImage.multerErrorHandler(), uploadImage.uploadToGCS("histories"), mlValidation.allergyCheck()], mlController.allergyCheck);
 
 module.exports = router;
