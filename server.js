@@ -8,7 +8,7 @@ const authRoutes = require("./routes/auth");
 const historiesRoutes = require("./routes/histories");
 const profileRoutes = require("./routes/profile");
 const quotesRoutes = require("./routes/quotes");
-const mlRoutes = require("./routes/ml");
+//const mlRoutes = require("./routes/ml");
 const checkLanguage = require("./middlewares/checkLanguageMiddleware")
 
 // For testing(Dont do In Production)
@@ -39,7 +39,7 @@ app.use("/api/v1", authRoutes );
 app.use("/api/v1/histories", historiesRoutes );
 app.use("/api/v1/profile", profileRoutes );
 app.use("/api/v1/quotes", quotesRoutes );
-app.use("/api/v1/ml", mlRoutes );
+//app.use("/api/v1/ml", mlRoutes );
 
 app.listen(process.env.PORT || 4000, () => {
     console.log("Server Running In Port: "+process.env.PORT);

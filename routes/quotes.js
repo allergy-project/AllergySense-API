@@ -6,6 +6,6 @@ const validateAuth = require("../middlewares/validateAuthMiddleware");
 const apicache = require("apicache");
 const cache = apicache.middleware;
 
-router.get("/", [validateAuth, cache("30 minutes")], quotesController.getQuotes);
+router.get("/", [validateAuth, cache("30 minutes")], quotesController.getQuote);
 
 module.exports = router;
