@@ -19,7 +19,7 @@ exports.allergyCheck = async (req, res) => {
         
         // Allergy Detection Logic(Determine Allergy or Not)
         // Load Model
-        modelLocation = path.join(__dirname, "../utils/allergyDetection.json");;
+        modelLocation = path.join(__dirname, "../utils/allergy_detection_model/allergyDetection.json");;
         const model = await tf.loadLayersModel(`file://${modelLocation}`);
         
         // Prepare Image for Input
@@ -38,10 +38,10 @@ exports.allergyCheck = async (req, res) => {
         // Check Allergy or Not
         let isAllergy = null
         let message = ""
-        if (result[0][0] > result[0][1]){
+        if (result[0] > result[1]){
             isAllergy = true;
             message = (req.isIndo)? "Terindikasi Alergi" : "Indicated Allergy";
-        }else if (result[0][1] > result[0][0]){
+        }else if (result[1] > result[0]){
             isAllergy = false
             message = (req.isIndo)? "Tidak Terindikasi Alergi" : "Not Indicated Allergy";
         }
