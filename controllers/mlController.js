@@ -38,10 +38,10 @@ exports.allergyCheck = async (req, res) => {
         // Check Allergy or Not
         let isAllergy = null
         let message = ""
-        if (result[0] > result[1]){
+        if (result[0][0] > result[0][1]){
             isAllergy = true;
             message = (req.isIndo)? "Terindikasi Alergi" : "Indicated Allergy";
-        }else if (result[1] > result[0]){
+        }else if (result[0][1] > result[0][0]){
             isAllergy = false
             message = (req.isIndo)? "Tidak Terindikasi Alergi" : "Not Indicated Allergy";
         }
