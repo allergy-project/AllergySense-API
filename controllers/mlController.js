@@ -58,8 +58,8 @@ exports.allergyCheck = async (req, res) => {
         const dataAllergy = allergyDoc[0].data();
         
         // Create Data for Suggest and Suggest Indo
-        let suggest = "Don't eat or use product related to ${dataAllergy.allergen}"
-        let suggest_indo = "jangan makan atau menggunakan produk yang berkaitan dengan ${dataAllergy.allergen_indo}"
+        let suggest = `Don't eat or use product related to ${dataAllergy.allergen}`
+        let suggest_indo = `jangan makan atau menggunakan produk yang berkaitan dengan ${dataAllergy.allergen_indo}`
         const otherAllergenDocs = await Allergy.where("allergy", "==", dataAllergy.allergy).get();
         if (!(otherAllergenDocs.empty)){
             const otherAllergens = otherAllergenDocs.data();
