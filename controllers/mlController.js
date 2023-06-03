@@ -47,8 +47,25 @@ exports.allergyCheck = async (req, res) => {
         }
         
         // Allergy Classification Logic(Determine Type of Allergy) allergy, suggest, suggest_indo, is_allergy, created_at, image_url
-        // Model Usage Goes Here
-        const data = {allergy: `Test Allergy-${req.data.allergen_code_number}`, suggest: `Dont eat related to ${req.data.allergen_code_number}`, suggest_indo: `Jangan makan yang berkaitan dengan ${req.data.allergen_code_number}`}
+        // Get Allergy Type By Allengen Code Number
+        const allergyDoc = Allergy.where("allergen_code_number", "==", data.allergen_code_number).get();
+        if (allergyDoc.empty) return res.status(404).json({ status_code: 404, message: (req.isIndo)? `Alergi Tidak Ditemukan!` :"Allergy Not Found!" });
+        const dataAllergy = allergyDoc[0].data();
+        
+        // Create Data for Suggest and Suggest Indo
+        let suggest = "Don't eat or use product related to ${dataAllergy.allergen}"
+        let suggest_indo = "jangan makan atau menggunakan produk yang berkaitan dengan ${dataAllergy.allergen_indo}"
+        const otherAllergenDocs = Allergy.where("allergy", "==", dataAllergy.allergy).get();
+        if (!(otherAllergenDocs.empty)){
+            const otherAllergens = otherAllergenDocs.data();
+            for (item of otherAllergens){
+                suggest += `, ${item.allergen}`
+                suggest_indo += `, ${item.allergen_indo}`
+            }
+        }
+        
+        
+        const data = {allergy: `${dataAllergy.allergy}`, suggest, suggest_indo}
         
         // Prepare Data for Add to Histories
         // Data for Created At(Unixtime)
