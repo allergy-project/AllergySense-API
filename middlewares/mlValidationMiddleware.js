@@ -19,10 +19,9 @@ exports.allergyCheck = () => async (req, res, next) => {
             
         // Check allergen_code_number must in range 0 - 161
         if (data["allergen_code_number"] < 0 || data["allergen_code_number"] > 161) return res.status(400).json({ status_code:400, message: (req.isIndo)? `Masukan Allergen/Bahan Makanan Sesuai Jangkauan!` : "Input Allergen/Ingredient According Given Scope!" });
+        data["allergen_code_number"] = Number(data["allergen_code_number"]);
         
         // Wrap Data for Used in Controller
-        data["allergen_code_number"] = Number(data["allergen_code_number"]);
-        console.log(data);
         req.data = data;
         
         return next();
