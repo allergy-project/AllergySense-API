@@ -25,6 +25,8 @@ exports.allergyCheck = () => async (req, res, next) => {
         
         req.data = data;
         
+        console.log(req.data);
+        
         return next();
     }catch(error){
         return res.status(500).json({ status_code:500, message: error.message });
