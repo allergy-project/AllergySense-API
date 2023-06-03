@@ -49,23 +49,19 @@ exports.allergyCheck = async (req, res) => {
         
         // Allergy Classification Logic(Determine Type of Allergy) allergy, suggest, suggest_indo, is_allergy, created_at, image_url
         // Get Allergy Type By Allengen Code Number
-        console.log(req.data);
-        console.log(req.data.allergen_code_number);
-        const allergyDoc = await Allergy.where("allergen_code_number", "==", Number(req.data.allergen_code_number)).get();
+        const allergyDoc = await Allergy.where("allergen_code_number", "==", req.data.allergen_code_number).get();
         if (allergyDoc.empty) return res.status(404).json({ status_code: 404, message: (req.isIndo)? `Alergi Tidak Ditemukan!` :"Allergy Not Found!" });
-        console.log(allergyDoc);
-        console.log(allergyDoc[0].data());
-        const dataAllergy = allergyDoc[0].data();
+        const dataAllergy = allergyDoc.docs[0].data();
         
         // Create Data for Suggest and Suggest Indo
         let suggest = `Don't eat or use product related to ${dataAllergy.allergen}`
         let suggest_indo = `jangan makan atau menggunakan produk yang berkaitan dengan ${dataAllergy.allergen_indo}`
         const otherAllergenDocs = await Allergy.where("allergy", "==", dataAllergy.allergy).get();
         if (!(otherAllergenDocs.empty)){
-            const otherAllergens = otherAllergenDocs.data();
             for (item of otherAllergens){
-                suggest += `, ${item.allergen}`
-                suggest_indo += `, ${item.allergen_indo}`
+                const itemData = item.data();
+                suggest += `, ${itemData.allergen}`;
+                suggest_indo += `, ${itemData.allergen_indo}`;
             }
         }
         
