@@ -41,7 +41,7 @@ exports.allergyCheck = async (req, res) => {
         let message = ""
         if (result[0][0] > result[0][1]){
             isAllergy = true;
-            message = (req.isIndo)? "Terindikasi Alergi" : "Indicated Allergy";
+            message = (req.isIndo)? "Terindikasi" : "Indicated";
         }else if (result[0][1] > result[0][0]){
             isAllergy = false
             message = (req.isIndo)? "Tidak Terindikasi Alergi" : "Not Indicated Allergy";
@@ -54,14 +54,14 @@ exports.allergyCheck = async (req, res) => {
         const dataAllergy = allergyDoc.docs[0].data();
         
         // Create Data for Suggest and Suggest Indo
-        let suggest = `Don't eat or use product related to ${dataAllergy.allergen}`
-        let suggest_indo = `jangan makan atau menggunakan produk yang berkaitan dengan ${dataAllergy.allergen_indo}`
+        let suggest = `Avoid eat or use product related to `
+        let suggest_indo = `Hindari makan atau menggunakan produk yang berkaitan dengan `
         const otherAllergenDocs = await Allergy.where("allergy", "==", dataAllergy.allergy).get();
         if (!(otherAllergenDocs.empty)){
             otherAllergenDocs.forEach((doc) => {
                 const otherDataAllergy = doc.data();
-                suggest += `, ${otherDataAllergy.allergen}`;
-                suggest_indo += `, ${otherDataAllergy.allergen_indo}`;
+                suggest += `${otherDataAllergy.allergen}, `;
+                suggest_indo += `${otherDataAllergy.allergen_indo}, `;
             });
         }
         
