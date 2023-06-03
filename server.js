@@ -10,7 +10,6 @@ const profileRoutes = require("./routes/profile");
 const quotesRoutes = require("./routes/quotes");
 const mlRoutes = require("./routes/ml");
 const checkLanguage = require("./middlewares/checkLanguageMiddleware");
-const Allergy = require("./models/Allergy");
 
 // For testing(Dont do In Production)
 //const {admin, fbconf} = require("./config/firebase");

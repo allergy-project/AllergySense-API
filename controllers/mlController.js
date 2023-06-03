@@ -1,7 +1,8 @@
 const tf = require('@tensorflow/tfjs-node');
 const path = require("path");
 const fs = require("fs");
-const History = require("../models/History")
+const History = require("../models/History");
+const Allergy = require("../models/Allergy");
 
 exports.allergyCheck = async (req, res) => {
     // Cek User Login
