@@ -49,7 +49,6 @@ exports.allergyCheck = async (req, res) => {
         
         // Allergy Classification Logic(Determine Type of Allergy) allergy, suggest, suggest_indo, is_allergy, created_at, image_url
         // Get Allergy Type By Allengen Code Number
-        console.log(req.data.allergen_code_number);
         const allergyDoc = await Allergy.where("allergen_code_number", "==", Number(req.data.allergen_code_number)).get();
         if (allergyDoc.empty) return res.status(404).json({ status_code: 404, message: (req.isIndo)? `Alergi Tidak Ditemukan!` :"Allergy Not Found!" });
         const dataAllergy = allergyDoc[0].data();
