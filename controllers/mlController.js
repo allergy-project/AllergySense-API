@@ -58,7 +58,7 @@ exports.allergyCheck = async (req, res) => {
         let suggest_indo = `jangan makan atau menggunakan produk yang berkaitan dengan ${dataAllergy.allergen_indo}`
         const otherAllergenDocs = await Allergy.where("allergy", "==", dataAllergy.allergy).get();
         if (!(otherAllergenDocs.empty)){
-            for (item of otherAllergens){
+            for (item of otherAllergenDocs){
                 const itemData = item.data();
                 suggest += `, ${itemData.allergen}`;
                 suggest_indo += `, ${itemData.allergen_indo}`;
