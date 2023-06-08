@@ -39,6 +39,7 @@ exports.getHistories = async (req, res) => {
     return res.status(200).json({ status_code: 200, message: (req.isIndo)? `Berhasil Mengambil Histories/Riwayat!` : "Success Get Histories!", data: histories });
     
   } catch (error) {
+      console.log(error.message);
     return res.status(500).json({ status_code: 500, message: error.message });
   }
 };
