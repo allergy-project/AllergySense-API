@@ -12,7 +12,7 @@ exports.getHistories = async (req, res) => {
   // Get All Histories
   try {
     // Get All Doc
-    const historiesDocs = await History.where("user_id", "==", user_id).get();
+    const historiesDocs = await History.where("user_id", "==", user_id).orderBy("created_at", "desc").get();
     
     // If Histories Not Found
     if (historiesDocs.empty) return res.status(404).json({ status_code: 404, message: (req.isIndo)? `Histories/Riwayat Tidak Ditemukan!` :"Histories Not Found!" });
