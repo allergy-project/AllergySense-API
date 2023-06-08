@@ -12,7 +12,7 @@ exports.getHistories = async (req, res) => {
   // Get All Histories
   try {
     // Get All Doc
-    const historiesDocs = await History.where("user_id", "==", user_id).orderBy("created_at", "desc").get();
+    const historiesDocs = await History.where("user_id", "==", user_id).get();
     
     // If Histories Not Found
     if (historiesDocs.empty) return res.status(404).json({ status_code: 404, message: (req.isIndo)? `Histories/Riwayat Tidak Ditemukan!` :"Histories Not Found!" });
@@ -34,12 +34,14 @@ exports.getHistories = async (req, res) => {
             histories.push({id: doc.id, ...history})
         });
     }
-    
-
+      
+    // Sort Histories By created_at 
+    histories.sort((a, b) => b.created_at - a.created_at);
+      
     return res.status(200).json({ status_code: 200, message: (req.isIndo)? `Berhasil Mengambil Histories/Riwayat!` : "Success Get Histories!", data: histories });
     
   } catch (error) {
-      console.log(error.message);
+
     return res.status(500).json({ status_code: 500, message: error.message });
   }
 };
