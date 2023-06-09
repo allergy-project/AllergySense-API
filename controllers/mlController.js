@@ -5,8 +5,13 @@ const History = require("../models/History");
 const Allergy = require("../models/Allergy");
 
 // Load Model
-const modelLocation = path.join(__dirname, "../utils/allergy_detection_model/allergyDetection.json");;
-const model = await tf.loadLayersModel(`file://${modelLocation}`);
+const loadModel = async () => {
+  const modelLocation = path.join(__dirname, "../utils/allergy_detection_model/allergyDetection.json");;
+  const model = await tf.loadLayersModel(`file://${modelLocation}`);
+  return model;
+};
+
+const model = loadModel();
 
 exports.allergyCheck = async (req, res) => {
     // Cek User Login
