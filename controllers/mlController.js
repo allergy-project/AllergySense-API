@@ -4,6 +4,10 @@ const fs = require("fs");
 const History = require("../models/History");
 const Allergy = require("../models/Allergy");
 
+// Load Model
+const modelLocation = path.join(__dirname, "../utils/allergy_detection_model/allergyDetection.json");;
+const model = await tf.loadLayersModel(`file://${modelLocation}`);
+
 exports.allergyCheck = async (req, res) => {
     // Cek User Login
     if (!req.user || req.user == null || req.user.length == 0) return res.status(401).json({ status_code:401, message: (req.isIndo)? `Pengguna Belum Terautentikasi!` : "User Not Authenticated!" });
@@ -19,9 +23,7 @@ exports.allergyCheck = async (req, res) => {
         // req.data
         
         // Allergy Detection Logic(Determine Allergy or Not)
-        // Load Model
-        modelLocation = path.join(__dirname, "../utils/allergy_detection_model/allergyDetection.json");;
-        const model = await tf.loadLayersModel(`file://${modelLocation}`);
+
         
         // Prepare Image for Input
         const imageBuffer = req.file.buffer;
