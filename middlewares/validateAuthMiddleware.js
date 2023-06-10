@@ -15,7 +15,7 @@ const validateAuth = async (req, res, next) => {
     if (!userDoc.exists) return res.status(401).json({ status_code:401 ,message:(req.isIndo)? "Pengguna Tidak Ditemukan!" : "User Not Found!" });
     return next();
   } catch (error) {
-    return res.status(401).json({ status_code:401 ,message: "Invalid Token!" });
+    return res.status(401).json({ status_code:401 ,message: "Session Expired, Please Login Again!" });
   }
 };
 
