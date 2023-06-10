@@ -4,8 +4,6 @@ const fs = require("fs");
 const History = require("../models/History");
 const Allergy = require("../models/Allergy");
 
-
-
 exports.allergyCheck = async (req, res) => {
     // Cek User Login
     if (!req.user || req.user == null || req.user.length == 0) return res.status(401).json({ status_code:401, message: (req.isIndo)? `Pengguna Belum Terautentikasi!` : "User Not Authenticated!" });
@@ -24,8 +22,7 @@ exports.allergyCheck = async (req, res) => {
         // Load Model
         const modelLocation = path.join(__dirname, "../utils/allergy_detection_model/allergyDetection.json");
         const model = await tf.loadLayersModel(`file://${modelLocation}`);
-      
-        
+    
         // Prepare Image for Input
         const imageBuffer = req.file.buffer;
         const decodeImage = tf.node.decodeImage(imageBuffer, 3);
@@ -67,8 +64,7 @@ exports.allergyCheck = async (req, res) => {
                 suggest_indo += `${otherDataAllergy.allergen_indo}, `;
             });
         }
-        
-        
+          
         const data = {allergy: `${dataAllergy.allergy}`, suggest, suggest_indo}
         
         // Prepare Data for Add to Histories
