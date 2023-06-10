@@ -34,7 +34,7 @@ app.use(checkLanguage);
 // Routes
 app.get("/", (req, res) => res.send("API RUN"));
 app.get("/api/v1/", (req, res) => res.send("API RUN"));
-app.get("/api/v1/documentation", (req, res) => res.redirect("https://documenter.getpostman.com.view/18201966/2s93m8xKWN"))
+app.get("/api/v1/documentation", (req, res) => res.redirect("https://documenter.getpostman.com/view/18201966/2s93m8xKWN"))
 app.use("/api/v1", authRoutes );
 app.use("/api/v1/histories", historiesRoutes );
 app.use("/api/v1/profile", profileRoutes );
